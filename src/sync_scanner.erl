@@ -449,22 +449,17 @@ growl(Image, Title, Message) ->
     end.
 
 growl_success(Message) ->
-    case sync_utils:get_env(growl,true) of
-        skip_success -> ok;
-        _            -> growl("success", "Success!", Message)
-    end.
+    growl_success("Success!", Message).
 
 growl_success(Title, Message) ->
-    growl("success", Title, Message).
+    case sync_utils:get_env(growl,true) of
+        skip_success -> ok;
+        _            -> growl("success", Title, Message)
+    end.
 
 growl_errors(Message) ->
     growl("errors", "Errors...", Message).
 
-growl_errors(Title, Message) ->
-    growl("errors", Title, Message).
-
 growl_warnings(Message) ->
     growl("warnings", "Warnings", Message).
 
-growl_warnings(Title, Message) ->
-    growl("warnings", Title, Message).
